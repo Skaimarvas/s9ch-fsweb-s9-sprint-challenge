@@ -16,11 +16,12 @@ export default function AppFunctional(props) {
     x: "",
     y: "",
   });
-
   const { email, steps, x, y } = payLoad;
   const [bval, setBval] = useState(initialIndex);
   const [stp, setStp] = useState(initialSteps);
   const [message, setMessage] = useState(initialMessage);
+  const [mail, setMail] = useState(initialEmail);
+
   function getXY() {
     // Koordinatları izlemek için bir state e sahip olmak gerekli değildir.
     // Bunları hesaplayabilmek için "B" nin hangi indexte olduğunu bilmek yeterlidir.
@@ -29,19 +30,19 @@ export default function AppFunctional(props) {
       bval === 0
         ? [1, 1]
         : bval === 1
-        ? [1, 2]
-        : bval === 2
-        ? [1, 3]
-        : bval === 3
         ? [2, 1]
+        : bval === 2
+        ? [3, 1]
+        : bval === 3
+        ? [1, 2]
         : bval === 4
         ? [2, 2]
         : bval === 5
-        ? [2, 3]
-        : bval === 6
-        ? [3, 1]
-        : bval === 7
         ? [3, 2]
+        : bval === 6
+        ? [1, 3]
+        : bval === 7
+        ? [2, 3]
         : bval === 8
         ? [3, 3]
         : "";
@@ -53,15 +54,18 @@ export default function AppFunctional(props) {
     // Kullanıcı için "Koordinatlar (2, 2)" mesajını izlemek için bir state'in olması gerekli değildir.
     // Koordinatları almak için yukarıdaki "getXY" helperını ve ardından "getXYMesaj"ı kullanabilirsiniz.
     // tamamen oluşturulmuş stringi döndürür.
-    const message = getXY();
 
-    return `Koordinatlar (${message[0]}, ${message[1]})`;
+    const [a, b] = crdnt;
+
+    return `Koordinatlar (${a}, ${b})`;
   }
   const crdntMessage = getXYMesaj();
   function reset() {
     // Tüm stateleri başlangıç ​​değerlerine sıfırlamak için bu helperı kullanın.
-    setBval(4);
-    setStp(0);
+    setBval(initialIndex);
+    setStp(initialSteps);
+    setMessage(initialMessage);
+    setMail(initialEmail);
   }
 
   function sonrakiIndex(yon) {
@@ -70,117 +74,153 @@ export default function AppFunctional(props) {
     // şu anki indeksi değiştirmemeli.
     if (yon === "up") {
       if (bval === 6) {
+        setMessage(initialMessage);
         return 3;
       }
       if (bval === 7) {
+        setMessage(initialMessage);
         return 4;
       }
       if (bval === 8) {
+        setMessage(initialMessage);
         return 5;
       }
       if (bval === 3) {
+        setMessage(initialMessage);
         return 0;
       }
       if (bval === 4) {
+        setMessage(initialMessage);
         return 1;
       }
       if (bval === 5) {
+        setMessage(initialMessage);
         return 2;
       }
       if (bval === 0) {
+        setMessage("Yukarıya gidemezsiniz");
         return 0;
       }
       if (bval === 1) {
+        setMessage("Yukarıya gidemezsiniz");
         return 1;
       }
       if (bval === 2) {
+        setMessage("Yukarıya gidemezsiniz");
         return 2;
       }
     }
     if (yon === "down") {
       if (bval === 0) {
+        setMessage(initialMessage);
         return 3;
       }
       if (bval === 1) {
+        setMessage(initialMessage);
         return 4;
       }
       if (bval === 2) {
+        setMessage(initialMessage);
         return 5;
       }
       if (bval === 3) {
+        setMessage(initialMessage);
         return 6;
       }
       if (bval === 4) {
+        setMessage(initialMessage);
         return 7;
       }
       if (bval === 5) {
+        setMessage(initialMessage);
         return 8;
       }
       if (bval === 6) {
+        setMessage("Aşağıya gidemezsiniz");
         return 6;
       }
       if (bval === 7) {
+        setMessage("Aşağıya gidemezsiniz");
         return 7;
       }
       if (bval === 8) {
+        setMessage("Aşağıya gidemezsiniz");
         return 8;
       }
     }
     if (yon === "left") {
       if (bval === 0) {
+        setMessage("Sola gidemezsiniz");
         return 0;
       }
       if (bval === 1) {
+        setMessage(initialMessage);
         return 0;
       }
       if (bval === 2) {
+        setMessage(initialMessage);
         return 1;
       }
       if (bval === 3) {
+        setMessage("Sola gidemezsiniz");
         return 3;
       }
       if (bval === 4) {
+        setMessage(initialMessage);
         return 3;
       }
       if (bval === 5) {
+        setMessage(initialMessage);
         return 4;
       }
       if (bval === 6) {
+        setMessage("Sola gidemezsiniz");
         return 6;
       }
       if (bval === 7) {
+        setMessage(initialMessage);
         return 6;
       }
       if (bval === 8) {
+        setMessage(initialMessage);
         return 7;
       }
     }
     if (yon === "right") {
       if (bval === 0) {
+        setMessage(initialMessage);
         return 1;
       }
       if (bval === 1) {
+        setMessage(initialMessage);
         return 2;
       }
       if (bval === 2) {
+        setMessage("Sağa gidemezsiniz");
         return 2;
       }
       if (bval === 3) {
+        setMessage(initialMessage);
         return 4;
       }
       if (bval === 4) {
+        setMessage(initialMessage);
         return 5;
       }
       if (bval === 5) {
+        setMessage("Sağa gidemezsiniz");
         return 5;
       }
       if (bval === 6) {
+        setMessage(initialMessage);
         return 7;
       }
       if (bval === 7) {
+        setMessage(initialMessage);
         return 8;
       }
       if (bval === 8) {
+        setMessage("Sağa gidemezsiniz");
         return 8;
       }
 
@@ -230,11 +270,7 @@ export default function AppFunctional(props) {
     // inputun değerini güncellemek için bunu kullanabilirsiniz
 
     const { value } = evt.target;
-
-    setPayLoad({
-      ...payLoad,
-      email: value,
-    });
+    setMail(value);
   }
 
   function onSubmit(evt) {
@@ -246,6 +282,7 @@ export default function AppFunctional(props) {
       .then((res) => {
         setMessage(res.data.message);
         console.log("Res Data", res.data);
+        setMail(initialEmail);
       })
       .catch((err) => {
         console.log(err.response.data.message);
@@ -253,27 +290,36 @@ export default function AppFunctional(props) {
       });
   }
   useEffect(() => {
-    console.log("STEP", stp);
-    console.log("getXYMesaj", getXYMesaj());
-    console.log("Payload", payLoad);
+    console.log("INITIAL INDEX", bval);
+    console.log("INITIAL STEP", stp);
+    console.log("INITIAL MESSAGE", message);
+    console.log("INITIAL EMAIL", mail);
+  }, []);
+
+  useEffect(() => {
     setPayLoad({
       ...payLoad,
+      email: mail,
       steps: stp,
       x: crdnt[0],
       y: crdnt[1],
     });
-  }, [bval, email, steps, x, y]);
-
-  useEffect(() => {
-    console.log("bval", bval);
-    console.log("STEP BAŞLANGIÇ", stp);
-  }, []);
+    console.log("STEP", stp);
+    console.log("GETXYMESSAGE", crdntMessage);
+    console.log("MESSAGE PERCHANGE", message);
+    console.log("PAYLOAD", payLoad);
+    console.log("MAIL", mail);
+  }, [bval, steps, mail, email, message]);
 
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">{getXYMesaj()}</h3>
-        <h3 id="steps">{stp} kere ilerlediniz</h3>
+        <h3 id="coordinates" data-testid="crdt">
+          {crdntMessage}
+        </h3>
+        <h3 id="steps" data-testid="stp">
+          {stp} kere ilerlediniz
+        </h3>
       </div>
       <div id="grid">
         {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((idx) => (
@@ -283,32 +329,33 @@ export default function AppFunctional(props) {
         ))}
       </div>
       <div className="info">
-        <h3 id="message"> {message} </h3>
+        <h3 id="message">{message}</h3>
       </div>
       <div id="keypad">
-        <button id="left" onClick={ilerle}>
+        <button id="left" data-testid="left" onClick={ilerle}>
           SOL
         </button>
-        <button id="up" onClick={ilerle}>
+        <button id="up" data-testid="up" onClick={ilerle}>
           YUKARI
         </button>
-        <button id="right" onClick={ilerle}>
+        <button id="right" data-testid="right" onClick={ilerle}>
           SAĞ
         </button>
-        <button id="down" onClick={ilerle}>
+        <button id="down" data-testid="down" onClick={ilerle}>
           AŞAĞI
         </button>
-        <button id="reset" onClick={reset}>
+        <button id="reset" data-testid="reset" onClick={reset}>
           reset
         </button>
       </div>
       <form onSubmit={onSubmit}>
         <input
           id="email"
+          data-testid="email"
           type="email"
           placeholder="email girin"
           onChange={onChange}
-          value={email}
+          value={mail}
         ></input>
         <input id="submit" type="submit"></input>
       </form>
